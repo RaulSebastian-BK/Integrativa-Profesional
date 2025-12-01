@@ -1,5 +1,8 @@
 # 🗺️ Croquis Interactivo del Centro Universitario UAEM Tianguistenco
 
+![Vista previa del croquis](img/Integrativa_Profesional_Croquis.png)
+
+
 Este proyecto es una **guía interactiva** diseñada especialmente para estudiantes de nuevo ingreso del Centro Universitario UAEM Tianguistenco.  
 Permite explorar el campus, ubicar edificios, zonas deportivas, áreas verdes, pasillos, comercios y accesos mediante un mapa clickeable con información detallada.
 
