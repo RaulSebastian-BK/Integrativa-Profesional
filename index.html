@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Croquis UAEM Tianguistenco – Guía interactiva</title>
+    <!-- Mejor soporte en móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <h1>Croquis del Centro Universitario UAEM Tianguistenco</h1>
+        <p>Guía interactiva para estudiantes de nuevo ingreso</p>
+    </header>
+
+    <section class="search-section" aria-label="Buscador de lugares en el campus">
+        <label for="search-input">¿Buscas algo en particular?</label>
+        <div class="search-row">
+            <input id="search-input" type="text"
+                   placeholder="Ejemplos: biblioteca, control escolar, baños, aula C3, servicio social…">
+            <button id="search-btn" type="button">Buscar</button>
+            <button id="clear-btn" class="secondary" type="button">Limpiar</button>
+        </div>
+        <small class="search-hint">
+            El sistema resaltará el edificio donde se encuentre lo que buscas.
+            También puedes hacer clic directamente en una zona del mapa.
+        </small>
+    </section>
+
+    <main class="main">
+        <!-- MAPA -->
+        <section class="map-wrapper" aria-label="Mapa esquemático del campus">
+            <div id="campus-map" class="map">
+
+                <!-- Muro / cerca del campus -->
+                <div class="muro-campus" aria-hidden="true"></div>
+
+                <!-- Cancha futbol rápido (barra arriba) -->
+                <div id="cancha-rapido"
+                     class="zona zona-deporte z-cancha-rapido">
+                    Canchas de fútbol rápido
+                </div>
+
+                <!-- Bloque D / E / F con pasillos -->
+                <div id="pasillo-d"
+                     class="zona zona-edificio pasillo z-pasillo-df">
+                </div>
+
+                <div id="edificio-d"
+                     class="zona zona-edificio z-edificio-d">
+                    Edificio D
+                </div>
+
+                <div id="pasillo-ef"
+                     class="zona zona-edificio pasillo z-pasillo-ef">
+                </div>
+
+                <div id="edificio-e"
+                     class="zona zona-edificio z-edificio-e">
+                    Edificio E
+                </div>
+
+                <div id="edificio-f"
+                     class="zona zona-edificio z-edificio-f">
+                    Edificio F
+                </div>
+
+                <!-- Laboratorio de innovación (nuevo edificio) -->
+                <div id="lab-innovacion"
+                     class="zona zona-edificio z-lab-innovacion">
+                    Laboratorio de innovación
+                </div>
+
+                <!-- Difusión cultural -->
+                <div id="difusion"
+                     class="zona zona-especial z-difusion">
+                    Difusión<br>cultural
+                </div>
+
+                <!-- Edificio C (barra superior) -->
+                <div id="edificio-c"
+                     class="zona zona-edificio z-edificio-c">
+                    Edificio C
+                </div>
+
+                <!-- Punto de reunión -->
+                <div id="punto-reunion"
+                     class="zona zona-verde z-punto-reunion">
+                    Punto de reunión
+                </div>
+
+                <!-- U de A y B: pasillo + edificios -->
+                <div id="pasillo-ab"
+                     class="zona zona-edificio z-pasillo-ab">
+                </div>
+
+                <div id="edificio-a"
+                     class="zona zona-edificio z-edificio-a">
+                    Edificio A
+                </div>
+
+                <div id="edificio-b"
+                     class="zona zona-edificio z-edificio-b">
+                    Edificio B
+                </div>
+
+                <!-- Biblioteca y plantación -->
+                <div id="biblioteca"
+                     class="zona zona-biblio z-biblioteca">
+                    Biblioteca
+                </div>
+
+                <div id="planteacion"
+                     class="zona zona-verde z-planteacion">
+                    Plantación / huerto
+                </div>
+
+                <!-- Canchas inferiores izquierda -->
+                <div id="cancha-basquet"
+                     class="zona zona-deporte z-cancha-basquet">
+                    Canchas de<br>fútbol y basquetbol
+                </div>
+
+                <div id="fronton"
+                     class="zona zona-deporte z-fronton">
+                    Canchas de<br>frontón
+                </div>
+
+                <div id="cancha-mixta"
+                     class="zona zona-deporte z-cancha-mixta">
+                    Canchas de<br>fútbol y basquetbol
+                </div>
+
+                <!-- Estacionamiento -->
+                <div id="estacionamiento"
+                     class="zona zona-est z-estacionamiento">
+                    Estacionamiento
+                </div>
+
+                <!-- Barra ENTRADA Y SALIDA DE ALUMNOS (gris, clickeable) -->
+                <div id="entrada-alumnos"
+                     class="zona barra-entrada z-barra-entrada">
+                </div>
+
+                <!-- Columna “SALIDA DE VEHÍCULOS” (gris, clickeable) -->
+                <div id="salida-vehiculos"
+                     class="zona barra-salida z-barra-salida">
+                    SALIDA<br>DE<br>VEHÍCULOS
+                </div>
+
+                <!-- Nueva caseta: llegada de Potrobús -->
+                <div id="caseta-potrobus"
+                     class="zona zona-especial z-caseta-potrobus">
+                    LLEGADA<br>DE<br>POTROBÚS
+                </div>
+
+                <!-- Zona de motos y caseta -->
+                <div id="zona-motos"
+                     class="zona zona-deporte z-motos">
+                    Motos
+                </div>
+
+                <!-- Espacio para bicicletas -->
+                <div id="zona-bicicletas"
+                     class="zona zona-deporte z-bicicletas">
+                    Bicicletas
+                </div>
+
+                <div id="caseta"
+                     class="zona zona-especial z-caseta">
+                    Caseta
+                </div>
+
+                <!-- Áreas verdes -->
+                <div id="area-verde-1"
+                     class="zona zona-verde z-area-verde-1">
+                    Área verde
+                </div>
+
+                <div id="area-verde-2"
+                     class="zona zona-verde z-area-verde-2">
+                    Área verde
+                </div>
+
+                <div id="area-verde-3"
+                     class="zona zona-verde z-area-verde-3">
+                    Área verde
+                </div>
+
+                <div id="area-verde-4"
+                     class="zona zona-verde z-area-verde-4">
+                    Área verde
+                </div>
+
+                <div id="area-verde-7"
+                     class="zona zona-verde z-area-verde-7">
+                    Área verde
+                </div>
+
+                <!-- Nuevas áreas verdes rectangulares -->
+                <div id="area-verde-8"
+                     class="zona zona-verde z-area-verde-8">
+                    Área verde
+                </div>
+
+                <div id="area-verde-9"
+                     class="zona zona-verde z-area-verde-9">
+                    Área verde
+                </div>
+
+                <div id="area-verde-10"
+                     class="zona zona-verde z-area-verde-10">
+                    Área verde
+                </div>
+
+                <div id="area-verde-11"
+                     class="zona zona-verde z-area-verde-11">
+                    Área verde
+                </div>
+
+                <!-- Zonas de precaución (serpientes de cascabel) -->
+                <div id="zona-peligro-1"
+                     class="zona zona-peligro z-peligro-1">
+                    Precaución: serpientes de cascabel
+                </div>
+
+                <div id="zona-peligro-2"
+                     class="zona zona-peligro z-peligro-2">
+                    Zona de riesgo
+                </div>
+
+                <!-- Rutas de evacuación (7 en total, encima de todo) -->
+                <div id="ruta-evac-1" class="ruta-evac-sign r-evac-1">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-2" class="ruta-evac-sign r-evac-2">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-3" class="ruta-evac-sign r-evac-3">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-4" class="ruta-evac-sign r-evac-4">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-5" class="ruta-evac-sign r-evac-5">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-6" class="ruta-evac-sign r-evac-6">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <div id="ruta-evac-7" class="ruta-evac-sign r-evac-7">
+                    <span class="ruta-arrow ruta-arrow-left"></span>
+                    <span class="ruta-text">RUTA DE<br>EVACUACIÓN</span>
+                </div>
+
+                <!-- PERSONAS (guardias en caseta) -->
+                <div id="guard-1" class="icon-person persona-1"></div>
+                <div id="guard-2" class="icon-person persona-2"></div>
+
+                <!-- SEÑALAMIENTOS DE BAÑOS (4 en total) -->
+                <div id="wc-1" class="icon-wc wc-1">WC</div>
+                <div id="wc-2" class="icon-wc wc-2">WC</div>
+                <div id="wc-3" class="icon-wc wc-3">WC</div>
+                <div id="wc-4" class="icon-wc wc-4">WC</div>
+
+                <!-- PARADA DE CAMIÓN -->
+                <div class="icon-bus bus-1" aria-hidden="true"></div>
+
+                <!-- ICONOS DE COMIDA / TAXIS (solo emoji, sin texto) -->
+                <div id="base-taxis" class="icon-spot icon-taxi z-base-taxis"></div>
+                <div id="tienda-tacos" class="icon-spot icon-tacos z-tienda-tacos"></div>
+                <div id="tienda-comida" class="icon-spot icon-burger z-tienda-comida"></div>
+                <!-- mismo id para no romper nada, pero ahora es puesto de tortas -->
+                <div id="tienda-tamales" class="icon-spot icon-tamales z-tienda-tamales"></div>
+                <!-- nuevo: aguas frescas -->
+                <div id="tienda-aguas" class="icon-spot icon-aguas z-tienda-aguas"></div>
+
+                <!-- MOBILIARIO: SILLAS, BANCAS Y BOTES DE BASURA -->
+                <div id="banca-1" class="icon-mobiliario banca banca-1"></div>
+                <div id="banca-2" class="icon-mobiliario banca banca-2"></div>
+                <div id="banca-3" class="icon-mobiliario banca banca-3"></div>
+                <div id="banca-4" class="icon-mobiliario banca banca-4"></div>
+                <div id="banca-5" class="icon-mobiliario banca banca-5"></div>
+
+                <div id="bote-1" class="icon-mobiliario bote bote-1"></div>
+                <div id="bote-2" class="icon-mobiliario bote bote-2"></div>
+                <div id="bote-3" class="icon-mobiliario bote bote-3"></div>
+
+                <!-- ARBOLITOS Y PINOS -->
+                <div id="arbol-1" class="icon-mobiliario arbol arbol-1"></div>
+                <div id="arbol-2" class="icon-mobiliario arbol arbol-2"></div>
+                <div id="arbol-3" class="icon-mobiliario arbol arbol-3"></div>
+
+                <div id="pino-1" class="icon-mobiliario pino pino-1"></div>
+                <div id="pino-2" class="icon-mobiliario pino pino-2"></div>
+                <div id="pino-3" class="icon-mobiliario pino pino-3"></div>
+                <div id="pino-4" class="icon-mobiliario pino pino-4"></div>
+
+                <!-- Norte (orientación del mapa) -->
+                <div class="north" aria-hidden="true">N</div>
+            </div>
+        </section>
+
+        <!-- PANEL INFORMACIÓN -->
+        <aside class="info-panel" aria-label="Información del lugar seleccionado">
+            <h2>Información</h2>
+            <div id="info-content" class="info-content" aria-live="polite" aria-atomic="true">
+                <p>Haz clic en un edificio o área del mapa, o utiliza el buscador para ver detalles.</p>
+            </div>
+
+            <h3>Leyenda</h3>
+            <ul class="legend">
+                <li><span class="legend-box legend-edificio"></span> Edificios académicos (A–F)</li>
+                <li><span class="legend-box legend-biblioteca"></span> Biblioteca</li>
+                <li><span class="legend-box legend-especial"></span> Difusión cultural, caseta</li>
+                <li><span class="legend-box legend-verde"></span> Áreas verdes / punto de reunión / huerto</li>
+                <li><span class="legend-box legend-parking"></span> Estacionamiento</li>
+                <li><span class="legend-box legend-court"></span> Canchas deportivas</li>
+                <li><span class="legend-box legend-comercio"></span> Tiendas y base de taxis (iconos)</li>
+                <li><span class="legend-box legend-peligro"></span> Zonas de precaución (serpientes de cascabel)</li>
+            </ul>
+
+            <!-- Panel de imagen independiente, debajo de la leyenda -->
+            <div id="photo-panel" class="photo-panel">
+                <p>Selecciona un edificio o área para ver una foto de referencia.</p>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>Croquis esquemático del Centro Universitario UAEM Tianguistenco – Uso académico.</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,1020 @@
+/* ================= PALETA UAEM ================= */
+
+:root {
+    --verde-uaem-oscuro: #0f3b21;
+    --verde-uaem-medio:  #2f6b3d;
+    --verde-uaem-claro:  #a7c78a;
+    --dorado-uaem:       #c89d3d;
+    --crema-fondo:       #f7f4ea;
+    --texto: #1f1f1f;
+
+    /* Escalas ajustables */
+    --ruta-scale: 0.7;          /* tamaño de los letreros de RUTA DE EVACUACIÓN */
+    --area-verde-scale: 1;      /* escala global de áreas verdes */
+}
+
+/* ================= RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #dad4c4 0, #b5ad98 35%, #9d947e 100%);
+    color: var(--texto);
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+}
+
+.page {
+    max-width: 1600px;
+    width: 100%;
+    background: var(--crema-fondo);
+    border-radius: 24px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+    padding: 20px 26px 18px;
+    border: 3px solid var(--verde-uaem-oscuro);
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    text-align: center;
+    margin-bottom: 14px;
+}
+.header h1 {
+    font-size: 2rem;
+    color: var(--verde-uaem-oscuro);
+    margin-bottom: 4px;
+}
+.header p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* ================= BUSCADOR ================= */
+
+.search-section {
+    margin-bottom: 14px;
+}
+.search-section label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: var(--verde-uaem-oscuro);
+}
+.search-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+#search-input {
+    flex: 1;
+    min-width: 260px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid #c0b7a2;
+    font-size: 0.9rem;
+    background: #fdfaf3;
+}
+#search-input:focus-visible {
+    outline: 2px solid var(--dorado-uaem);
+    outline-offset: 2px;
+}
+button {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    background: var(--verde-uaem-oscuro);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+button.secondary {
+    background: #b09a68;
+}
+button:hover {
+    background: #0a2a16;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+}
+button.secondary:hover {
+    background: #947e4a;
+}
+button:focus-visible {
+    outline: 2px solid var(--dorado-uaem);
+    outline-offset: 3px;
+}
+.search-hint {
+    font-size: 0.78rem;
+    color: #666;
+}
+
+/* ================= LAYOUT PRINCIPAL ================= */
+
+.main {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+.map-wrapper {
+    flex: 3.2;
+    min-width: 780px;
+}
+.info-panel {
+    flex: 1;
+    min-width: 260px;
+    background: #faf7ef;
+    border-radius: 16px;
+    border: 1px solid #ded2b2;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+}
+
+/* ================= MAPA ================= */
+
+.map {
+    position: relative;
+    width: 100%;
+    padding-top: 62%;
+    background-color: #f6f5f0;
+    border-radius: 20px;
+    border: 2px solid var(--verde-uaem-medio);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* Muro / cerca del campus */
+.muro-campus {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 96%;
+    height: 96%;
+    border-radius: 26px;
+    border: 2px solid rgba(92, 64, 35, 0.75);
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5) inset;
+    pointer-events: none;
+}
+
+/* ========= DISEÑO DE ZONAS ========= */
+
+.zona,
+.barra-entrada,
+.barra-salida {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.zona {
+    cursor: pointer;
+    transition:
+        box-shadow 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        transform 0.12s ease;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+}
+
+.zona:hover {
+    box-shadow: 0 0 12px rgba(0,0,0,0.22);
+    transform: translateY(-1px) scale(1.01);
+}
+
+.zona:focus-visible {
+    outline: 2px solid var(--dorado-uaem);
+    outline-offset: 2px;
+}
+
+/* Edificios académicos */
+.zona-edificio {
+    background: radial-gradient(circle at top,
+        #ffffff 0%,
+        #f3efe4 55%,
+        #e6ddc7 100%);
+    border-radius: 12px;
+    border: 2px solid var(--verde-uaem-medio);
+    color: #122015;
+    box-shadow:
+        0 2px 4px rgba(0,0,0,0.16),
+        0 0 0 1px rgba(255,255,255,0.6) inset;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.14));
+    z-index: 1;
+}
+
+/* Biblioteca (MORADA) */
+.zona-biblio {
+    background: radial-gradient(circle at top,
+        #f3e5f5 0%,
+        #e1bee7 45%,
+        #ce93d8 100%);
+    border: 2px solid #6a1b9a;
+    border-radius: 12px;
+    color: #4a148c;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.16));
+}
+
+/* Áreas verdes */
+.zona-verde {
+    background: linear-gradient(135deg,
+        #eaf6d9 0%,
+        #d1ebae 40%,
+        #b7df86 100%);
+    border-radius: 12px;
+    border: 2px solid var(--verde-uaem-medio);
+    color: #23401a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.14);
+}
+
+/* Punto de reunión */
+.z-punto-reunion {
+    background: linear-gradient(135deg,
+        #fff9c4 0%,
+        #fff176 50%,
+        #ffd54f 100%);
+    border: 2px solid #f9a825;
+    color: #5d4600;
+}
+
+/* Difusión cultural / casetas especiales */
+.zona-especial {
+    background: linear-gradient(135deg,
+        #ffe0b2 0%,
+        #ffcc80 45%,
+        #ffb74d 100%);
+    border-radius: 14px;
+    border: 2px solid #fb8c00;
+    color: #5d3100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.14));
+}
+
+/* Caseta principal */
+.z-caseta {
+    background: linear-gradient(135deg,
+        #fff9c4 0%,
+        #fff176 45%,
+        #ffe082 100%);
+    border-color: #f9a825;
+    color: #5d4600;
+    bottom: 13%;
+    left: 45%;
+    width: 7%;
+    height: 8%;
+    border-radius: 0 !important;
+}
+
+/* Caseta llegada Potrobús */
+.z-caseta-potrobus {
+    background: linear-gradient(135deg,
+        #fff9c4 0%,
+        #fff176 45%,
+        #ffe082 100%);
+    border-color: #f9a825;
+    color: #5d4600;
+    bottom: 13%;
+    left: 72%;
+    width: 10%;
+    height: 8%;
+    border-radius: 0 !important;
+}
+
+/* Estacionamiento */
+.zona-est {
+    background: linear-gradient(160deg,
+        #e3f2fd 0%,
+        #bbdefb 40%,
+        #90caf9 100%);
+    border-radius: 8px;
+    border: 2px solid #1565c0;
+    color: #0d47a1;
+    box-shadow:
+        inset 0 0 6px rgba(0,0,0,0.22),
+        0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Canchas deportivas (general) */
+.zona-deporte {
+    background: repeating-linear-gradient(
+        135deg,
+        #1d7c3c 0,
+        #1d7c3c 6px,
+        #1f8c43 6px,
+        #1f8c43 12px
+    );
+    color: #f5fff5;
+    border-radius: 10px;
+    border: 2px solid #0f3b21;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Laboratorio de innovación (nuevo edificio, vertical al lado de D) */
+.z-lab-innovacion {
+    top: 17%;
+    left: 3.1%;
+    width: 6%;
+    height: 18%;
+}
+
+/* Barras entrada/salida */
+.barra-entrada,
+.barra-salida {
+    background: linear-gradient(180deg,
+        #b0bec5 0%,
+        #90a4ae 55%,
+        #78909c 100%);
+    color: #f5f5f5;
+    font-size: 0.65rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+/* Pasillos */
+.pasillo {
+    background: linear-gradient(90deg,
+        #f2f0ea 0%,
+        #e9e4d7 100%);
+    border-radius: 10px;
+    border: 2px dashed rgba(15, 59, 33, 0.55);
+    z-index: 0;
+    font-size: 0;
+}
+
+/* Zonas de peligro */
+.zona-peligro {
+    background: linear-gradient(135deg,
+        #ffe5e5 0%,
+        #ffc9b9 45%,
+        #ffb3a2 100%);
+    border: 2px solid #c62828;
+    color: #6d1212;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+}
+
+/* Formas especiales de áreas verdes */
+.z-area-verde-4 {
+    clip-path: polygon(
+        25% 0%,
+        75% 0%,
+        100% 50%,
+        75% 100%,
+        25% 100%,
+        0% 50%
+    );
+}
+.z-area-verde-7 {
+    border-radius: 8px;
+}
+
+/* ==== Rutas de evacuación ==== */
+
+.ruta-evac-sign {
+    position: absolute;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: calc(3px * var(--ruta-scale));
+    padding: calc(2px * var(--ruta-scale)) calc(5px * var(--ruta-scale));
+    background: var(--verde-uaem-oscuro);
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: calc(0.5rem * var(--ruta-scale));
+    line-height: 1.1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    white-space: nowrap;
+    cursor: pointer;
+}
+.ruta-arrow {
+    width: calc(10px * var(--ruta-scale));
+    height: calc(10px * var(--ruta-scale));
+    position: relative;
+    flex-shrink: 0;
+}
+.ruta-arrow-left::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: calc(5px * var(--ruta-scale)) solid transparent;
+    border-bottom: calc(5px * var(--ruta-scale)) solid transparent;
+    border-right: calc(10px * var(--ruta-scale)) solid #ffffff;
+}
+.ruta-text {
+    font-weight: 700;
+}
+
+/* Posiciones rutas */
+.r-evac-1 { top: 25%; left: 10.1%; }
+.r-evac-2 { top: 48%; left: 10.1%; }
+.r-evac-3 { top: 53%; left: 10.1%; }
+.r-evac-4 { top: 25%; left: 70.2%; }
+.r-evac-5 { top: 25%; left: 52%; }
+.r-evac-6 { top: 38%; left: 62.5%; }
+.r-evac-7 { top: 25%; left: 28.3%; }
+
+/* Iconos de personas */
+.icon-person {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffe082;
+    border: 2px solid #f9a825;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+.icon-person::before {
+    content: "👤";
+}
+.persona-1 {
+    bottom: 20.8%;
+    left: 46%;
+}
+.persona-2 {
+    bottom: 20.8%;
+    left: 49%;
+}
+
+/* Iconos de comida / taxis / aguas */
+.icon-spot {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fffde7;
+    border: 2px solid #ffb300;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 6000;
+}
+.icon-spot.highlight {
+    box-shadow: 0 0 12px rgba(255, 235, 59, 0.95);
+}
+.icon-taxi::before {
+    content: "🚕";
+}
+.icon-tacos::before {
+    content: "🌮";
+}
+.icon-burger::before {
+    content: "🍔";
+}
+.icon-tamales::before {
+    content: "🥪";
+}
+.icon-aguas::before {
+    content: "🍹";
+}
+
+.z-base-taxis { bottom: 0%; left: 43%; }
+.z-tienda-tacos { bottom: 0%; left: 73%; }
+.z-tienda-comida { bottom: 0%; left: 58%; }
+.z-tienda-tamales { bottom: 10%; left: 98%; }
+.z-tienda-aguas { bottom: 0%; left: 88%; }
+
+/* Mobiliario */
+.icon-mobiliario {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #4caf50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 6500;
+}
+
+.banca::before { content: "🛋️"; }
+.bote::before { content: "🗑️"; }
+
+.banca-1 { top: 27.7%; left: 63.1%; }
+.banca-2 { top: 72%; left: 19.7%; }
+.banca-3 { top: 88%; left: 19.7%; }
+.banca-4 { top: 86.3%; left: 72%; }
+.banca-5 { top: 38.45%; left: 82.1%; }
+
+.bote-1 { top: 60.5%; left: 5%; }
+.bote-2 { top: 7.3%; left: 77.5%; }
+.bote-3 { top: 64.7%; left: 63.2%; }
+
+/* Árboles y pinos */
+
+.arbol::before { content: "🌳"; }
+.pino::before { content: "🌲"; }
+
+/* Solo 3 árboles */
+.arbol-1 { top: 18%; left: 92.5%; }
+.arbol-2 { top: 51%; left: 63%; }
+.arbol-3 { top: 39.3%; left: 5.15%; }
+
+/* Solo 4 pinos */
+.pino-1 { top: 7.2%;  left: 40.5%; }
+.pino-2 { top: 71.9%; left: 74%; }
+.pino-3 { top: 71.9%; left: 92.5%; }
+.pino-4 { top: 57%; left: 35%; }
+
+/* Señales WC */
+.icon-wc {
+    position: absolute;
+    min-width: 24px;
+    padding: 2px 4px;
+    border-radius: 6px;
+    background: #1565c0;
+    color: #ffffff;
+    font-size: 0.55rem;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    z-index: 5000;
+    cursor: pointer;
+}
+.wc-1 { top: 22.5%; left: 10%; }
+.wc-2 { top: 22.5%; left: 67%; }
+.wc-3 { top: 46%; left: 10%; }
+.wc-4 { top: 38%; left: 67%; }
+
+/* Parada de camión */
+.icon-bus {
+    position: absolute;
+    width: 28px;
+    height: 18px;
+    border-radius: 8px;
+    background: #004d40;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+.icon-bus::before {
+    content: "🚌";
+}
+.bus-1 {
+    bottom: 11%;
+    left: 80%;
+}
+
+/* Highlight general */
+.highlight {
+    box-shadow: 0 0 18px 4px rgba(255, 235, 59, 0.95);
+    border-color: #fbc02d !important;
+    z-index: 4;
+}
+
+/* Highlight suave para barras de acceso (entrada/salida) */
+.barra-entrada.highlight-access,
+.barra-salida.highlight-access {
+    /* no se toca z-index para que no tapen a otras zonas */
+    outline: 3px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 4px rgba(246, 196, 83, 0.9);
+}
+
+/* Norte */
+.north {
+    position: absolute;
+    top: 5%;
+    right: 4%;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--verde-uaem-oscuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #fffdf5;
+}
+
+/* ================= POSICIONES ================= */
+
+/* Canchas rápido */
+.z-cancha-rapido {
+    top: 5%;
+    left: 13%;
+    width: 26%;
+    height: 7.5%;
+}
+
+/* D + pasillo */
+.z-pasillo-df {
+    top: 25%;
+    left: 10%;
+    width: 5%;
+    height: 8%;
+}
+.z-edificio-d {
+    top: 17%;
+    left: 10%;
+    width: 23%;
+    height: 8%;
+}
+
+/* E/F */
+.z-pasillo-ef {
+    top: 40%;
+    left: 10%;
+    width: 5%;
+    height: 23%;
+}
+.z-edificio-e {
+    top: 40%;
+    left: 10%;
+    width: 23%;
+    height: 8%;
+}
+.z-edificio-f {
+    top: 55%;
+    left: 10%;
+    width: 23%;
+    height: 8%;
+}
+
+/* Difusión cultural */
+.z-difusion {
+    top: 31%;
+    left: 37.5%;
+    width: 14%;
+    height: 19%;
+    clip-path: polygon(
+        30% 0%, 70% 0%, 100% 30%,
+        100% 70%, 70% 100%,
+        30% 100%, 0% 70%, 0% 30%
+    );
+}
+
+/* Edificio C */
+.z-edificio-c {
+    top: 17%;
+    left: 52%;
+    width: 23%;
+    height: 8%;
+}
+
+/* Punto de reunión */
+.z-punto-reunion {
+    top: 27%;
+    left: 59%;
+    width: 10%;
+    height: 9%;
+}
+
+/* A y B */
+.z-pasillo-ab {
+    top: 38%;
+    left: 56%;
+    width: 16%;
+    height: 8.06%;
+}
+.z-edificio-b {
+    top: 38%;
+    left: 56%;
+    width: 5%;
+    height: 35%;
+}
+.z-edificio-a {
+    top: 38%;
+    left: 67%;
+    width: 5%;
+    height: 35%;
+}
+
+/* Biblioteca */
+.z-biblioteca {
+    top: 17%;
+    right: 11%;
+    width: 12%;
+    height: 17%;
+}
+
+/* Plantación */
+.z-planteacion {
+    top: 51%;
+    right: 11%;
+    width: 12%;
+    height: 17%;
+}
+
+/* Canchas inferiores */
+.z-cancha-basquet {
+    bottom: 24%;
+    left: 6%;
+    width: 16%;
+    height: 7%;
+}
+.z-fronton {
+    bottom: 15%;
+    left: 6%;
+    width: 16%;
+    height: 7%;
+}
+.z-cancha-mixta {
+    bottom: 6%;
+    left: 6%;
+    width: 16%;
+    height: 7%;
+}
+
+/* Estacionamiento */
+.z-estacionamiento {
+    bottom: 3%;
+    left: 24%;
+    width: 19%;
+    height: 30%;
+}
+
+/* Barra entrada */
+.z-barra-entrada {
+    bottom: 13%;
+    left: 45%;
+    width: 53%;
+    height: 8%;
+}
+.z-barra-entrada::before {
+    content: "ENTRADA Y SALIDA DE ALUMNOS";
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fdfaf2;
+    width: 100%;
+    text-align: center;
+    display: block;
+    white-space: normal; /* permite que se vea toda la frase */
+    position: relative;
+    left: -18%; /* desplaza el texto un poco a la izquierda para que se vea completo */
+}
+
+/* Barra salida */
+.z-barra-salida {
+    bottom: 2%;
+    left: 45%;
+    width: 5%;
+    height: 13%;
+}
+
+/* Zona motos */
+.z-motos {
+    bottom: 3%;
+    left: 62%;
+    width: 15%;
+    height: 6%;
+    /* Azul más fuerte tipo estacionamiento */
+    background: linear-gradient(160deg,
+        #bbdefb 0%,
+        #90caf9 40%,
+        #42a5f5 100%);
+    border-radius: 8px;
+    border: 2px solid #1565c0;
+    color: #0d47a1;
+    box-shadow:
+        inset 0 0 6px rgba(0,0,0,0.22),
+        0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Zona bicicletas (nueva) */
+.z-bicicletas {
+    bottom: 3%;
+    left: 50.5%;
+    width: 5.7%;
+    height: 6%;
+    /* Azul más fuerte tipo estacionamiento */
+    background: linear-gradient(160deg,
+        #bbdefb 0%,
+        #90caf9 40%,
+        #42a5f5 100%);
+    border-radius: 8px;
+    border: 2px solid #1565c0;
+    color: #0d47a1;
+    box-shadow:
+        inset 0 0 6px rgba(0,0,0,0.22),
+        0 2px 4px rgba(0,0,0,0.18);
+}
+
+/* Áreas verdes */
+.z-area-verde-1 {
+    top: 54%;
+    left: 34.4%;
+    width: calc(20% * var(--area-verde-scale));
+    height: calc(10% * var(--area-verde-scale));
+}
+.z-area-verde-2 {
+    top: 48%;
+    left: 61.5%;
+    width: calc(5% * var(--area-verde-scale));
+    height: calc(21% * var(--area-verde-scale));
+}
+.z-area-verde-3 {
+    top: 5%;
+    left: 40%;
+    width: calc(40% * var(--area-verde-scale));
+    height: calc(8% * var(--area-verde-scale));
+}
+.z-area-verde-4 {
+    top: 37%;
+    left: 77%;
+    width: calc(12% * var(--area-verde-scale));
+    height: calc(12% * var(--area-verde-scale));
+}
+.z-area-verde-7 {
+    top: 38%;
+    left: 3.1%;
+    width: calc(6% * var(--area-verde-scale));
+    height: calc(27% * var(--area-verde-scale));
+}
+
+/* Nuevas áreas verdes rectangulares */
+.z-area-verde-8 {
+    top: 16%;
+    left: 36%;
+    width: calc(12% * var(--area-verde-scale));
+    height: calc(10% * var(--area-verde-scale));
+}
+.z-area-verde-9 {
+    top: 29%;
+    left: 17.5%;
+    width: calc(13% * var(--area-verde-scale));
+    height: calc(7% * var(--area-verde-scale));
+}
+.z-area-verde-10 {
+    top: 70%;
+    left: 73%;
+    width: calc(23% * var(--area-verde-scale));
+    height: calc(7% * var(--area-verde-scale));
+}
+.z-area-verde-11 {
+    top: 17%;
+    left: 91%;
+    width: calc(5% * var(--area-verde-scale));
+    height: calc(51% * var(--area-verde-scale));
+}
+
+/* Zonas de peligro */
+.z-peligro-1 {
+    top: 5%;
+    left: 81%;
+    width: 12%;
+    height: 7.5%;
+}
+.z-peligro-2 {
+    bottom: 88%;
+    right: 88%;
+    width: 9%;
+    height: 7.5%;
+}
+
+/* PANEL INFO */
+
+.info-panel h2 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: var(--verde-uaem-oscuro);
+}
+.info-panel h3 {
+    font-size: 0.95rem;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+.info-content {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0dccf;
+    padding: 8px 10px;
+    min-height: 160px;
+    font-size: 0.85rem;
+}
+.info-content p + p {
+    margin-top: 4px;
+}
+
+/* Panel imagen: AHORA ADAPTABLE A LA ORIENTACIÓN */
+.photo-panel {
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0dccf;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* base para cualquier foto */
+.photo-panel img {
+    display: block;
+    border-radius: 10px;
+    border: 2px solid var(--verde-uaem-oscuro);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* Foto horizontal: usa todo el ancho */
+.photo-img-horizontal {
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+}
+
+/* Foto vertical: más alta, menos ancha, el panel se “hace vertical” */
+.photo-img-vertical {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 380px; /* ajusta si la quieres más alta/baja */
+}
+
+/* Leyenda */
+.legend {
+    list-style: none;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+.legend li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+.legend-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.legend-edificio {
+    background: #fdfdf9;
+    border: 2px solid var(--verde-uaem-oscuro);
+}
+.legend-biblioteca {
+    background: #e1bee7;
+    border: 2px solid #6a1b9a;
+}
+.legend-especial {
+    background: #ffe0b2;
+    border: 2px solid #fb8c00;
+}
+.legend-verde {
+    background: var(--verde-uaem-claro);
+    border: 2px solid var(--verde-uaem-medio);
+}
+.legend-parking {
+    background: #bbdefb;
+    border: 2px solid #1565c0;
+}
+.legend-court {
+    background: var(--verde-uaem-medio);
+}
+.legend-comercio {
+    background: #fffde7;
+    border: 2px solid #ffb300;
+}
+.legend-peligro {
+    background: #ffe5e5;
+    border: 2px solid #c62828;
+}
+
+/* Footer */
+.footer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #777;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .map-wrapper {
+        min-width: 100%;
+    }
+    .map {
+        padding-top: 75%;
+    }
+}
